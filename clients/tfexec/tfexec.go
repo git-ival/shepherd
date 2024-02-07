@@ -122,8 +122,12 @@ func (c *Client) SetupWorkspace(opts ...tfexec.WorkspaceNewCmdOption) error {
 	ws := c.TerraformConfig.WorkspaceName
 
 	var err error
+	var wsExists bool
 	if ws != "" {
-		wsExists, _ := c.WorkspaceExists(ws)
+		wsExists, err = c.WorkspaceExists(ws)
+		if err != nil {
+			return errors.Wrap(err, "SetupWorkspace: ")
+		}
 		if wsExists {
 			err = c.Terraform.WorkspaceSelect(context.Background(), ws)
 		} else {
