@@ -5,13 +5,15 @@ import (
 )
 
 const (
-	ConfigurationFileKey = "tfexecInput"
+	ConfigurationFileKey = "tfexec"
 )
 
+// A representation of the upstream PlanOptions that are typically used by this client
 type PlanOptions struct {
 	OutDir string `json:"outDir" yaml:"outDir"`
 }
 
+// A representative struct for the configuration options used by the tfexec client
 type Config struct {
 	WorkspaceName string       `json:"workspaceName" yaml:"workspaceName"`
 	WorkingDir    string       `json:"workingDir" yaml:"workingDir"`
@@ -21,6 +23,7 @@ type Config struct {
 	PlanOpts      *PlanOptions `json:"planOpts" yaml:"planOpts"`
 }
 
+// TerraformConfig loads the tfexec configuration inputs into a tfexec.Config struct and returns a pointer to it
 func TerraformConfig() *Config {
 	var tfConfig Config
 	config.LoadConfig(ConfigurationFileKey, &tfConfig)
