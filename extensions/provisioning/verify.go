@@ -672,11 +672,7 @@ func VerifyUpgrade(t *testing.T, updatedCluster *bundledclusters.BundledCluster,
 }
 
 // VerifySnapshots waits for a cluster's snapshots to be ready and validates that the correct number of snapshots have been taken
-<<<<<<< HEAD
 func VerifySnapshots(client *rancher.Client, clusterName string, expectedSnapshotLength int, isRKE1 bool) (string, error) {
-=======
-func VerifySnapshots(client *rancher.Client, localclusterID string, clusterName string, expectedSnapshotLength int) (string, error) {
->>>>>>> 01ef541 (update deprecated fn call, add GetPodLogsWithOpts(), add GetPods() and GetPodNames())
 	client, err := client.ReLogin()
 	if err != nil {
 		return "", err
