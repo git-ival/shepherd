@@ -1,7 +1,6 @@
 package kubeconfig
 
 import (
-	"errors"
 	"os"
 
 	"github.com/pkg/errors"
@@ -13,7 +12,7 @@ import (
 )
 
 // GetKubeconfig generates a kubeconfig froma specific cluster, and returns it in the form of a *clientcmd.ClientConfig
-func GetKubeconfig(client *rancher.Client, clusterID string) (*clientcmd.ClientConfig, error) {
+func GetKubeconfig(client *rancher.Client, clusterID string) (*clientcmd.OverridingClientConfig, error) {
 	cluster, err := client.Management.Cluster.ByID(clusterID)
 	if err != nil {
 		return nil, err
@@ -31,10 +30,7 @@ func GetKubeconfig(client *rancher.Client, clusterID string) (*clientcmd.ClientC
 		return nil, err
 	}
 
-	cfg, ok := clientConfig.(clientcmd.ClientConfig)
-	if !ok {
-		return nil, errors.New("error converting OverridingClientConfig to ClientConfig")
-	}
+	cfg := clientConfig
 
 	return &cfg, nil
 }

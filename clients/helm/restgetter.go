@@ -16,11 +16,11 @@ type RESTClientGetter struct {
 	genericclioptions.RESTClientGetter
 	config       *genericclioptions.ConfigFlags
 	restConfig   *rest.Config
-	clientConfig clientcmd.ClientConfig
+	clientConfig clientcmd.OverridingClientConfig
 	cache        discovery.CachedDiscoveryInterface
 }
 
-func NewRESTClientGetter(restConfig *rest.Config, clientConfig *clientcmd.ClientConfig, namespace string) (*RESTClientGetter, error) {
+func NewRESTClientGetter(restConfig *rest.Config, clientConfig *clientcmd.OverridingClientConfig, namespace string) (*RESTClientGetter, error) {
 	if restConfig == nil || clientConfig == nil {
 		return nil, errors.New("NewRESTClientGetter: 'restConfig' and 'clientConfig' must be non-nil")
 	}
