@@ -109,11 +109,13 @@ func (n *Node) ExecuteCommand(command string) (string, error) {
 	if err != nil {
 		return outputString, err
 	}
+	defer client.Close()
 
 	session, err := client.NewSession()
 	if err != nil {
 		return outputString, err
 	}
+	defer session.Close()
 
 	output, err = session.Output(command)
 	outputString = string(output)
